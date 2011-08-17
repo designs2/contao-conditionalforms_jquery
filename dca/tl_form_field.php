@@ -1,13 +1,15 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
- * TYPOlight webCMS
- * Copyright (C) 2005 Leo Feyer
+ * Contao Open Source CMS
+ * Copyright (C) 2005-2011 Leo Feyer
+ *
+ * Formerly known as TYPOlight Open Source CMS.
  *
  * This program is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
- * version 2.1 of the License, or (at your option) any later version.
+ * version 3 of the License, or (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,12 +18,13 @@
  * 
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
- * Software Foundation website at http://www.gnu.org/licenses/.
+ * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Andreas Schempp 2009
+ * @copyright  Andreas Schempp 2009-2011
  * @author     Andreas Schempp <andreas@schempp.ch>
  * @license    http://opensource.org/licenses/lgpl-3.0.html
+ * @version    $Id$
  */
 
 
@@ -37,6 +40,8 @@ $GLOBALS['TL_DCA']['tl_form_field']['palettes']['conditionstop'] = '{type_legend
 /**
  * Fields
  */
+$GLOBALS['TL_DCA']['tl_form_field']['fields']['value']['eval']['decodeEntities'] = true;
+
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['conditionType'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_form_field']['conditionType'],
@@ -51,28 +56,35 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['conditionType'] = array
 
 class tl_conditionalforms extends Frontend
 {
-	public function loadFormField($objWidget, $formId)
+
+	/**
+	 * Do not check input on fields inside a non-enabled FormCondition group
+	 *
+	 * @param	Widget
+	 * @param	int
+	 * @param	array
+	 * @return	Widget
+	 * @link	http://www.contao.org/hooks.html#loadFormField
+	 */
+	public function loadFormField($objWidget, $formId, $arrForm)
 	{
-		if ($objWidget instanceof FormCondition && $objWidget->conditionType == 'start')
+		// Activate field validation excemption
+		if ($objWidget instanceof FormCondition && $objWidget->conditionType == 'start' && $this->Input->post($objWidget->name) == '')
 		{
-			array_push($GLOBALS['FORM_CONDITION'], ($this->Input->post($objWidget->name) ? true : false));
-		}
-		elseif ($objWidget instanceof FormCondition && $objWidget->conditionType == 'stop')
-		{
-			array_pop($GLOBALS['FORM_CONDITION']);
+			$GLOBALS['FORM_CONDITION'] = true;
 		}
 		
-		if (count($GLOBALS['FORM_CONDITION']) && !end($GLOBALS['FORM_CONDITION']))
+		// Deactivate field validation exception
+		elseif ($objWidget instanceof FormCondition && $objWidget->conditionType == 'stop')
 		{
-			/**
-			 * Display mandatory star
-			 */
-			if (!$objWidget->tableless && $objWidget->mandatory)
-			{
-				$objWidget->label .= '<span class="mandatory">*</span>';
-			}
-			
+			$GLOBALS['FORM_CONDITION'] = false;
+		}
+		
+		// Disable field validation inside FormCondition
+		elseif (!($objWidget instanceof FormCondition) && $GLOBALS['FORM_CONDITION'] && $this->Input->post('FORM_SUBMIT') == $formId)
+		{
 			$objWidget->mandatory = false;
+			$objWidget->rgxp = '';
 		}
 		
 		return $objWidget;

@@ -25,7 +25,13 @@
  */
 
 
+/**
+ * Frontend form fields
+ */
 $GLOBALS['TL_FFL']['condition'] = 'FormCondition';
 
-$GLOBALS['FORM_CONDITION'] = array();
+/**
+ * Hooks
+ */
 $GLOBALS['TL_HOOKS']['loadFormField'][] = array('tl_conditionalforms', 'loadFormField');
+
