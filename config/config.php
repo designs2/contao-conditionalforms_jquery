@@ -33,5 +33,5 @@ $GLOBALS['TL_FFL']['condition'] = 'FormCondition';
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['loadFormField'][] = array('tl_conditionalforms', 'loadFormField');
+$GLOBALS['TL_HOOKS']['loadFormField'][] = array('ConditionalForms', 'loadFormField');
 
