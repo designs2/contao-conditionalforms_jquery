@@ -10,12 +10,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
@@ -36,14 +36,14 @@ class FormCondition extends Widget
 	 * @var boolean
 	 */
 	protected $blnSubmitInput = true;
-	
+
 	/**
 	 * Template
 	 * @var string
 	 */
 	protected $strTemplate = 'form_condition';
-	
-	
+
+
 	/**
 	 * Add specific attributes
 	 * @param string
@@ -56,7 +56,7 @@ class FormCondition extends Widget
 			case 'value':
 				$this->varValue = $varValue ? true : false;
 				break;
-				
+
 			case 'options':
 				break;
 
@@ -65,11 +65,11 @@ class FormCondition extends Widget
 				break;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Do not check stop fields.
-	 * 
+	 *
 	 * @param	mixed $varInput
 	 * @return	mixed
 	 */
@@ -80,11 +80,11 @@ class FormCondition extends Widget
 			$this->mandatory = false;
 			$this->blnSubmitInput = false;
 		}
-		
+
 		return parent::validator($varInput);
 	}
-	
-	
+
+
 	/**
 	 * Generate the widget
 	 *
@@ -104,6 +104,6 @@ class FormCondition extends Widget
 						$this->strId,
 						$this->label);
 	}
-	
+
 }
 

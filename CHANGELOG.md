@@ -2,6 +2,10 @@
 conditionalforms
 ================
 
+Version 1.3.0 stable (2012-??-??)
+---------------------------------
+- Disable HTML5 client side validation in Chrome and Firefox if necessary
+
 Version 1.2.0 stable (2012-03-19)
 ---------------------------------
 - Fixed issues with Contao 2.10.1 and later
