@@ -1,6 +1,10 @@
-================
+
 conditionalforms
 ================
+
+Version 1.2.0 stable (2012-03-19)
+---------------------------------
+- Fixed issues with Contao 2.10.1 and later
 
 Version 1.1.0 stable (2011-08-17)
 ---------------------------------
