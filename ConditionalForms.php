@@ -10,12 +10,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
@@ -41,26 +41,52 @@ class ConditionalForms extends Frontend
 	 */
 	public function loadFormField($objWidget, $formId, $arrForm)
 	{
-		// Activate field validation excemption
-		if ($objWidget instanceof FormCondition && $objWidget->conditionType == 'start' && $this->Input->post($objWidget->name) == '')
+		if ($objWidget instanceof FormCondition)
 		{
-			$GLOBALS['FORM_CONDITION'] = true;
+			// Activate field validation excemption
+			if ($objWidget->conditionType == 'start')
+			{
+				$GLOBALS['FORM_CONDITION'][$formId] = ($_POST[$objWidget->name] == '');
+			}
+
+			// Deactivate field validation exception
+			elseif ($objWidget->conditionType == 'stop')
+			{
+				unset($GLOBALS['FORM_CONDITION'][$formId]);
+			}
 		}
-		
-		// Deactivate field validation exception
-		elseif ($objWidget instanceof FormCondition && $objWidget->conditionType == 'stop')
+		else
 		{
-			$GLOBALS['FORM_CONDITION'] = false;
+			// We have a mandatory field in conditional section, disable client side validation
+			if (isset($GLOBALS['FORM_CONDITION'][$formId]) && $objWidget->mandatory)
+			{
+				$GLOBALS['TL_HOOKS']['parseTemplate']['conditionalforms'] = array('ConditionalForms', 'disableBrowserValidation');
+			}
+
+			// Disable field validation inside FormCondition
+			if ($GLOBALS['FORM_CONDITION'][$formId] && $this->Input->post('FORM_SUBMIT') == $formId)
+			{
+				$objWidget->mandatory = false;
+				$objWidget->rgxp = '';
+			}
 		}
-		
-		// Disable field validation inside FormCondition
-		elseif (!($objWidget instanceof FormCondition) && $GLOBALS['FORM_CONDITION'] && $this->Input->post('FORM_SUBMIT') == $formId)
-		{
-			$objWidget->mandatory = false;
-			$objWidget->rgxp = '';
-		}
-		
+
 		return $objWidget;
+	}
+
+
+	/**
+	 * Disable client side validation
+	 * @param	object
+	 * @link	http://www.contao.org/hooks.html#loadFormField
+	 */
+	public function disableBrowserValidation($objTemplate)
+	{
+		if ($objTemplate->getName() == 'form')
+	    {
+	        $objTemplate->attributes = $objTemplate->attributes . ' novalidate';
+	        unset($GLOBALS['TL_HOOKS']['parseTemplate']['conditionalforms']);
+	    }
 	}
 }
 

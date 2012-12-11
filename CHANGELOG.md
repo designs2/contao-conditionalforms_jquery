@@ -1,6 +1,15 @@
-================
+
 conditionalforms
 ================
+
+Version 1.3.0 stable (2012-12-11)
+---------------------------------
+- Disable HTML5 client side validation in Chrome and Firefox if necessary
+- Added support for Contao 3
+
+Version 1.2.0 stable (2012-03-19)
+---------------------------------
+- Fixed issues with Contao 2.10.1 and later
 
 Version 1.1.0 stable (2011-08-17)
 ---------------------------------
