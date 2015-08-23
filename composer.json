@@ -3,14 +3,18 @@
   "description": "Contao Conditional Forms mit jQuery",
   "keywords": [
     "contao",
-    "designs2/conditionalforms_jquery",
+    "designs2/contao-conditionalforms_jquery",
     "conditionalforms_jquery",
     "conditionalforms"
   ],
   "type": "contao-module",
-  "homepage": "https://revision6.de",
+  "homepage": "http://designs2.de",
   "license": "LGPL-3.0+",
   "authors": [
+    {
+      "name": "Terminal42",
+      "role": "Developer"
+    },
     {
       "name": "David Molenius",
       "role": "Developer"
@@ -21,15 +25,14 @@
     }
   ],
   "support": {
-    "email": "shout@revision6.de",
-    "issues": "https://github.com/revision6/conditionalforms_jquery/issues",
-    "source": "https://github.com/revision6/conditionalforms_jquery"
+    "email": "info@designs2.de",
+    "issues": "https://github.com/designs2/contao-conditionalforms_jquery/issues",
+    "source": "https://github.com/designs2/contao-conditionalforms_jquery"
   },
   "require": {
     "php": ">=5.4",
     "contao/core": ">3.4.4,<4.0",
-    "contao-community-alliance/composer-plugin": "~2.0",
-    "contao-legacy/conditionalforms": "~1.3"
+    "contao-community-alliance/composer-plugin": "~2.0"
   },
   "extra": {
     "contao": {
