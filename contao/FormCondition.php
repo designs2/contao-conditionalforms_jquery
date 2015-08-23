@@ -88,7 +88,11 @@ class FormCondition extends Widget
 	/**
 	 * Generate the widget
 	 *
-	 * */
+	 * @param	void
+	 * @return	string
+	 */
+	public function generate()
+	{
 				return sprintf('
 						<div class="conditionalForm">
                             <input type="hidden" name="%s" value="" />
@@ -109,9 +113,7 @@ class FormCondition extends Widget
 						$this->strId,
 						$this->label);
 	}	
-	/** @param	void
-	 * @return	string
-	 */
+
 
 
 }
