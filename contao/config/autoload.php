@@ -32,8 +32,8 @@
  */
 ClassLoader::addClasses(array
 (
-	'ConditionalForms'         => 'system/modules/conditionalforms/ConditionalForms.php',
-	'FormCondition'            => 'system/modules/conditionalforms/FormCondition.php',
+	'ConditionalForms'         => 'system/modules/conditionalforms_jquery/ConditionalForms.php',
+	'FormCondition'            => 'system/modules/conditionalforms_jquery/FormCondition.php',
 ));
 
 
@@ -42,5 +42,5 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'form_condition'    => 'system/modules/conditionalforms/templates',
+	'form_condition'    => 'system/modules/conditionalforms_jquery/templates',
 ));
