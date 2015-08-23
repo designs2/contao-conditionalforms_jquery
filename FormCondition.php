@@ -88,12 +88,17 @@ class FormCondition extends Widget
 	/**
 	 * Generate the widget
 	 *
-	 * @param	void
-	 * @return	string
-	 */
-	public function generate()
-	{
-		return sprintf('<input type="hidden" name="%s" value="" /><input type="checkbox" name="%s" id="opt_%s" class="checkbox" value="1" onclick="if(this.checked) { document.id(\'condition_%s\').style.display=\'block\'; } else { document.id(\'condition_%s\').style.display=\'none\'; }"%s%s /> <label for="opt_%s">%s</label>',
+	 * */
+				return sprintf('
+						<div class="conditionalForm">
+                            <input type="hidden" name="%s" value="" />
+                                <div class="checkbox">
+                                    <input type="checkbox" name="%s" id="opt_%s" class="checkbox" value="1" onclick="if(this.checked) { $(\'#condition_%s\').show(); } else { $(\'#condition_%s\').hide(); }"%s%s />
+                                    <label for="opt_%s">
+                                    %s</label>
+                                </div>
+                        </div>
+			',
 						$this->strName,
 						$this->strName,
 						$this->strId,
@@ -103,7 +108,11 @@ class FormCondition extends Widget
 						$this->getAttributes(),
 						$this->strId,
 						$this->label);
-	}
+	}	
+	/** @param	void
+	 * @return	string
+	 */
+
 
 }
 
